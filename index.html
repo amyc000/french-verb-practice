@@ -6,427 +6,94 @@
 
 <title>Conjugaison Française</title>
 
-<style>
-body{
-    font-family:Arial,sans-serif;
-    max-width:700px;
-    margin:auto;
-    padding:20px;
-    background:#f5f7fa;
-}
+styles.css
 
-.card{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
-}
-
-h1{
-    text-align:center;
-    color:#1f4e79;
-}
-
-.verb{
-    font-size:2rem;
-    font-weight:bold;
-    text-align:center;
-    margin:20px 0;
-}
-
-.subject{
-    font-size:1.5rem;
-    text-align:center;
-    margin-bottom:20px;
-}
-
-input{
-    width:100%;
-    padding:12px;
-    font-size:1.2rem;
-    box-sizing:border-box;
-}
-
-button{
-    padding:10px 16px;
-    margin:8px 5px;
-    cursor:pointer;
-}
-
-.primary{
-    background:#1f4e79;
-    color:white;
-    border:none;
-}
-
-.feedback{
-    margin-top:20px;
-    font-weight:bold;
-}
-
-.correct{
-    color:green;
-}
-
-.incorrect{
-    color:darkred;
-}
-
-#explanation{
-    margin-top:15px;
-    padding:15px;
-    background:#eef5fb;
-    display:none;
-}
-
-.stats{
-    text-align:center;
-    margin-bottom:20px;
-}
-</style>
 </head>
 <body>
 
 <h1>Conjugaison Française</h1>
 
-<div class="stats">
-    Cartes étudiées :
-    <span id="count">0</span>
-</div>
+<div id="homeScreen">
 
-<div class="card">
+    <div class="card">
 
-    <div>
-        Conjuguez le verbe :
+        <div class="menu">
+
+            <button id="mixedMode" class="primary">
+                🎲 Pratique mixte
+            </button>
+
+            <button id="difficultMode">
+                🔥 Réviser mes verbes difficiles
+            </button>
+
+        </div>
+
+        <div class="stats">
+
+            <strong>Progression</strong>
+
+            <p>
+                Cartes étudiées :
+                <span id="cardsStudied">0</span>
+            </p>
+
+            <p>
+                Cartes difficiles :
+                <span id="hardCount">0</span>
+            </p>
+
+        </div>
+
     </div>
 
-    <div id="verb" class="verb"></div>
+</div>
 
-    <div id="subject" class="subject"></div>
+<div id="practiceScreen" class="hidden">
 
-    <input id="answer">
+    <div class="card">
 
-    <br>
+        <div>Conjuguez le verbe :</div>
 
-    <button class="primary" id="checkBtn">
-        Vérifier
-    </button>
+        <div id="verb" class="verb"></div>
 
-    <button id="whyBtn">
-        Pourquoi ?
-    </button>
+        <div id="subject" class="subject"></div>
 
-    <button id="nextBtn">
-        Carte suivante
-    </button>
+        <input id="answer">
 
-    <div id="feedback" class="feedback"></div>
+        <br><br>
 
-    <div id="correctAnswer"></div>
+        <button id="checkBtn" class="primary">
+            Vérifier
+        </button>
 
-    <div id="explanation"></div>
+        <button id="knowBtn">
+            Je connais déjà celui-ci
+        </button>
+
+        <button id="hardBtn">
+            Difficile
+        </button>
+
+        <button id="whyBtn">
+            Pourquoi ?
+        </button>
+
+        <button id="nextBtn">
+            Carte suivante
+        </button>
+
+        <div id="feedback"></div>
+
+        <div id="correctAnswer"></div>
+
+        <div id="explanation"></div>
+
+    </div>
 
 </div>
 
-<script>
-
-const verbs = [
-
-{
-verb:"être",
-type:"irregular",
-forms:{
-je:"suis",
-tu:"es",
-il:"est",
-elle:"est",
-on:"est",
-nous:"sommes",
-vous:"êtes",
-ils:"sont",
-elles:"sont"
-}
-},
-{
-verb:"avoir",
-type:"irregular",
-forms:{
-je:"ai",
-tu:"as",
-il:"a",
-elle:"a",
-on:"a",
-nous:"avons",
-vous:"avez",
-ils:"ont",
-elles:"ont"
-}
-},
-{
-verb:"aller",
-type:"irregular",
-forms:{
-je:"vais",
-tu:"vas",
-il:"va",
-elle:"va",
-on:"va",
-nous:"allons",
-vous:"allez",
-ils:"vont",
-elles:"vont"
-}
-},
-{
-verb:"faire",
-type:"irregular",
-forms:{
-je:"fais",
-tu:"fais",
-il:"fait",
-elle:"fait",
-on:"fait",
-nous:"faisons",
-vous:"faites",
-ils:"font",
-elles:"font"
-}
-},
-{
-verb:"dire",
-type:"irregular",
-forms:{
-je:"dis",
-tu:"dis",
-il:"dit",
-elle:"dit",
-on:"dit",
-nous:"disons",
-vous:"dites",
-ils:"disent",
-elles:"disent"
-}
-},
-{
-verb:"venir",
-type:"irregular",
-forms:{
-je:"viens",
-tu:"viens",
-il:"vient",
-elle:"vient",
-on:"vient",
-nous:"venons",
-vous:"venez",
-ils:"viennent",
-elles:"viennent"
-}
-},
-{
-verb:"prendre",
-type:"irregular",
-forms:{
-je:"prends",
-tu:"prends",
-il:"prend",
-elle:"prend",
-on:"prend",
-nous:"prenons",
-vous:"prenez",
-ils:"prennent",
-elles:"prennent"
-}
-},
-{
-verb:"parler",
-type:"regular",
-forms:{
-je:"parle",
-tu:"parles",
-il:"parle",
-elle:"parle",
-on:"parle",
-nous:"parlons",
-vous:"parlez",
-ils:"parlent",
-elles:"parlent"
-}
-},
-{
-verb:"aimer",
-type:"regular",
-forms:{
-je:"aime",
-tu:"aimes",
-il:"aime",
-elle:"aime",
-on:"aime",
-nous:"aimons",
-vous:"aimez",
-ils:"aiment",
-elles:"aiment"
-}
-},
-{
-verb:"donner",
-type:"regular",
-forms:{
-je:"donne",
-tu:"donnes",
-il:"donne",
-elle:"donne",
-on:"donne",
-nous:"donnons",
-vous:"donnez",
-ils:"donnent",
-elles:"donnent"
-}
-}
-];
-
-while(verbs.length < 25){
-verbs.push(verbs[verbs.length % 10]);
-}
-
-const pronouns = [
-"je","tu","il","elle",
-"on","nous","vous",
-"ils","elles"
-];
-
-let currentVerb;
-let currentSubject;
-
-let progress =
-JSON.parse(
-localStorage.getItem("frenchVerbProgress")
-) || {
-cardsAnswered:0
-};
-
-document.getElementById("count").textContent =
-progress.cardsAnswered;
-
-function randomItem(arr){
-return arr[Math.floor(Math.random()*arr.length)];
-}
-
-function nextCard(){
-
-currentVerb = randomItem(verbs);
-currentSubject = randomItem(pronouns);
-
-document.getElementById("verb").textContent =
-currentVerb.verb;
-
-document.getElementById("subject").textContent =
-currentSubject;
-
-document.getElementById("answer").value = "";
-
-document.getElementById("feedback").innerHTML = "";
-document.getElementById("correctAnswer").innerHTML = "";
-document.getElementById("explanation").style.display="none";
-}
-
-function normalize(text){
-
-let t = text.trim().toLowerCase();
-
-for(const p of pronouns){
-if(t.startsWith(p+" ")){
-t = t.substring(p.length+1);
-}
-}
-
-return t;
-}
-
-function checkAnswer(){
-
-const user =
-normalize(
-document.getElementById("answer").value
-);
-
-const correct =
-currentVerb.forms[currentSubject];
-
-if(user === correct){
-
-document.getElementById("feedback").innerHTML =
-'<span class="correct">✅ Correct !</span>';
-
-progress.cardsAnswered++;
-
-localStorage.setItem(
-"frenchVerbProgress",
-JSON.stringify(progress)
-);
-
-document.getElementById("count").textContent =
-progress.cardsAnswered;
-
-}
-else{
-
-document.getElementById("feedback").innerHTML =
-'<span class="incorrect">❌ Pas tout à fait...</span>';
-}
-
-document.getElementById("correctAnswer").innerHTML =
-'<br>Correct form: <strong>' +
-currentSubject +
-' ' +
-correct +
-'</strong>';
-}
-
-function toggleWhy(){
-
-let box =
-document.getElementById("explanation");
-
-if(box.style.display==="block"){
-box.style.display="none";
-return;
-}
-
-box.innerHTML =
-'<strong>Rule</strong><br>' +
-(currentVerb.type==="regular"
-? 'This is a regular verb.'
-: 'This is an irregular verb.')
-+
-'<br><br><strong>Subject</strong><br>' +
-currentSubject +
-'<br><br><strong>Correct form</strong><br>' +
-currentSubject +
-' ' +
-currentVerb.forms[currentSubject];
-
-box.style.display="block";
-}
-
-document.getElementById("checkBtn")
-.addEventListener("click",checkAnswer);
-
-document.getElementById("nextBtn")
-.addEventListener("click",nextCard);
-
-document.getElementById("whyBtn")
-.addEventListener("click",toggleWhy);
-
-document.getElementById("answer")
-.addEventListener("keydown",e=>{
-if(e.key==="Enter"){
-checkAnswer();
-}
-});
-
-nextCard();
-
-</script>
+app.jsscript>
 
 </body>
 </html>
