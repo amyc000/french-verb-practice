@@ -1,23 +1,51 @@
 const cards = [
     {
         verb: "parler",
+        type: "regular",
+        subject: "je",
+        answer: "parle"
+    },
+    {
+        verb: "parler",
+        type: "regular",
         subject: "nous",
         answer: "parlons"
     },
     {
         verb: "aimer",
+        type: "regular",
         subject: "vous",
         answer: "aimez"
     },
     {
         verb: "donner",
-        subject: "je",
-        answer: "donne"
+        type: "regular",
+        subject: "elles",
+        answer: "donnent"
     },
     {
         verb: "aller",
+        type: "irregular",
         subject: "ils",
         answer: "vont"
+    },
+    {
+        verb: "aller",
+        type: "irregular",
+        subject: "nous",
+        answer: "allons"
+    },
+    {
+        verb: "être",
+        type: "irregular",
+        subject: "vous",
+        answer: "êtes"
+    },
+    {
+        verb: "avoir",
+        type: "irregular",
+        subject: "elles",
+        answer: "ont"
     }
 ];
 
@@ -27,7 +55,8 @@ let progress =
     JSON.parse(
         localStorage.getItem("frenchVerbProgress")
     ) || {
-        cardsStudied: 0
+        cardsStudied: 0,
+        hardCards: []
     };
 
 function saveProgress() {
@@ -43,10 +72,19 @@ function updateStats() {
     document.getElementById("cardsStudied")
         .textContent =
         progress.cardsStudied;
+
+    document.getElementById("hardCount")
+        .textContent =
+        progress.hardCards.length;
 }
 
 function randomItem(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
+
+    return arr[
+        Math.floor(
+            Math.random() * arr.length
+        )
+    ];
 }
 
 function startPractice() {
@@ -77,6 +115,8 @@ function nextCard() {
     document.getElementById("feedback").innerHTML = "";
 
     document.getElementById("correctAnswer").innerHTML = "";
+
+    document.getElementById("explanation").innerHTML = "";
 }
 
 function checkAnswer() {
@@ -124,20 +164,120 @@ function checkAnswer() {
         currentCard.answer;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function showWhy() {
 
-    updateStats();
+    let explanation = "";
 
-    document
-        .getElementById("mixedMode")
-        .addEventListener("click", startPractice);
+    explanation +=
+        "<h3>Explanation</h3>";
 
-    document
-        .getElementById("nextBtn")
-        .addEventListener("click", nextCard);
+    explanation +=
+        "<p><strong>Verb:</strong> " +
+        currentCard.verb +
+        "</p>";
 
-    document
-        .getElementById("checkBtn")
-        .addEventListener("click", checkAnswer);
+    explanation +=
+        "<p><strong>Subject:</strong> " +
+        currentCard.subject +
+        "</p>";
 
-});
+    explanation +=
+        "<p><strong>Correct form:</strong> " +
+        currentCard.answer +
+        "</p>";
+
+    if (currentCard.type === "regular") {
+
+        explanation +=
+            "<p>This follows a regular conjugation pattern.</p>";
+
+    } else {
+
+        explanation +=
+            "<p>This is an irregular form that must be memorized.</p>";
+    }
+
+    document.getElementById("explanation")
+        .innerHTML = explanation;
+}
+
+function markHard() {
+
+    const cardId =
+        currentCard.verb +
+        "|" +
+        currentCard.subject;
+
+    if (
+        !progress.hardCards.includes(cardId)
+    ) {
+
+        progress.hardCards.push(cardId);
+
+        saveProgress();
+
+        updateStats();
+
+        alert(
+            "Carte ajoutée aux verbes difficiles."
+        );
+    }
+}
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        updateStats();
+
+        document
+            .getElementById("mixedMode")
+            .addEventListener(
+                "click",
+                startPractice
+            );
+
+        document
+            .getElementById("nextBtn")
+            .addEventListener(
+                "click",
+                nextCard
+            );
+
+        document
+            .getElementById("checkBtn")
+            .addEventListener(
+                "click",
+                checkAnswer
+            );
+
+        document
+            .getElementById("whyBtn")
+            .addEventListener(
+                "click",
+                showWhy
+            );
+
+        document
+            .getElementById("hardBtn")
+            .addEventListener(
+                "click",
+                markHard
+            );
+
+        document
+            .getElementById("answer")
+            .addEventListener(
+                "keydown",
+                function (e) {
+
+                    if (e.key === "Enter") {
+
+                        checkAnswer();
+                    }
+
+                }
+            );
+
+    }
+);
