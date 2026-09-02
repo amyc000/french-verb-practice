@@ -45,6 +45,7 @@ const pronouns = [
 
 let currentVerb;
 let currentSubject;
+let reviewMode = "mixed";
 
 let progress =
 JSON.parse(
@@ -119,7 +120,7 @@ return currentSubject + " " + answer;
 
 function nextCard() {
 
-let weightedCards = [];
+let candidateCards = [];
 
 verbs.forEach(function (verb) {
 
@@ -127,6 +128,22 @@ pronouns.forEach(function (subject) {
 
 const cardId =
 verb.verb + "|" + subject;
+
+if (reviewMode === "difficult") {
+
+if (
+progress.hardCards.includes(cardId)
+) {
+
+candidateCards.push({
+verb: verb,
+subject: subject
+});
+
+}
+
+}
+else {
 
 let weight = 5;
 
@@ -148,10 +165,12 @@ i < weight;
 i++
 ) {
 
-weightedCards.push({
+candidateCards.push({
 verb: verb,
 subject: subject
 });
+
+}
 
 }
 
@@ -159,8 +178,17 @@ subject: subject
 
 });
 
+if (candidateCards.length === 0) {
+
+document.getElementById("feedback").innerHTML =
+"😅 Aucune carte difficile pour le moment.";
+
+return;
+
+}
+
 const selected =
-randomItem(weightedCards);
+randomItem(candidateCards);
 
 currentVerb =
 selected.verb;
@@ -183,6 +211,24 @@ document.getElementById("correctAnswer").innerHTML = "";
 }
 
 function startPractice() {
+
+reviewMode = "mixed";
+
+document
+.getElementById("homeScreen")
+.classList.add("hidden");
+
+document
+.getElementById("practiceScreen")
+.classList.remove("hidden");
+
+nextCard();
+
+}
+
+function startDifficultReview() {
+
+reviewMode = "difficult";
 
 document
 .getElementById("homeScreen")
@@ -341,6 +387,14 @@ document
 "click",
 startPractice
 );
+
+  document
+.getElementById("difficultMode")
+.addEventListener(
+"click",
+startDifficultReview
+);
+
 
 document
 .getElementById("nextBtn")
