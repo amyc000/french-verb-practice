@@ -1,36 +1,3 @@
-const verbs = [
-{
-verb:"parler",
-type:"regular",
-forms:{je:"parle",tu:"parles",il:"parle",elle:"parle",on:"parle",nous:"parlons",vous:"parlez",ils:"parlent",elles:"parlent"}
-},
-{
-verb:"aimer",
-type:"regular",
-forms:{je:"aime",tu:"aimes",il:"aime",elle:"aime",on:"aime",nous:"aimons",vous:"aimez",ils:"aiment",elles:"aiment"}
-},
-{
-verb:"donner",
-type:"regular",
-forms:{je:"donne",tu:"donnes",il:"donne",elle:"donne",on:"donne",nous:"donnons",vous:"donnez",ils:"donnent",elles:"donnent"}
-},
-{
-verb:"aller",
-type:"irregular",
-forms:{je:"vais",tu:"vas",il:"va",elle:"va",on:"va",nous:"allons",vous:"allez",ils:"vont",elles:"vont"}
-},
-{
-verb:"être",
-type:"irregular",
-forms:{je:"suis",tu:"es",il:"est",elle:"est",on:"est",nous:"sommes",vous:"êtes",ils:"sont",elles:"sont"}
-},
-{
-verb:"avoir",
-type:"irregular",
-forms:{je:"ai",tu:"as",il:"a",elle:"a",on:"a",nous:"avons",vous:"avez",ils:"ont",elles:"ont"}
-}
-];
-
 const pronouns = [
 "je",
 "tu",
