@@ -133,17 +133,13 @@ let weight = 5;
 if (
 progress.hardCards.includes(cardId)
 ) {
-
 weight = 15;
-
 }
 
 if (
 progress.knownCards.includes(cardId)
 ) {
-
 weight = 1;
-
 }
 
 for (
@@ -183,8 +179,6 @@ document.getElementById("answer").value = "";
 document.getElementById("feedback").innerHTML = "";
 
 document.getElementById("correctAnswer").innerHTML = "";
-
-document.getElementById("explanation").innerHTML = "";
 
 }
 
@@ -275,46 +269,6 @@ getDisplayForm();
 
 }
 
-function showWhy() {
-
-let explanation = "";
-
-explanation +=
-"<h3>Explanation</h3>";
-
-explanation +=
-"<p><strong>Verb:</strong> " +
-currentVerb.verb +
-"</p>";
-
-explanation +=
-"<p><strong>Subject:</strong> " +
-currentSubject +
-"</p>";
-
-explanation +=
-"<p><strong>Correct form:</strong> " +
-getDisplayForm() +
-"</p>";
-
-if (currentVerb.type === "regular") {
-
-explanation +=
-"<p>This follows a regular conjugation pattern.</p>";
-
-}
-else {
-
-explanation +=
-"<p>This is an irregular form that must be memorized.</p>";
-
-}
-
-document.getElementById("explanation").innerHTML =
-explanation;
-
-}
-
 function markHard() {
 
 const id =
@@ -400,13 +354,6 @@ document
 .addEventListener(
 "click",
 checkAnswer
-);
-
-document
-.getElementById("whyBtn")
-.addEventListener(
-"click",
-showWhy
 );
 
 document
