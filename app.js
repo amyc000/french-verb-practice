@@ -23,6 +23,28 @@ const cards = [
 
 let currentCard;
 
+let progress =
+    JSON.parse(
+        localStorage.getItem("frenchVerbProgress")
+    ) || {
+        cardsStudied: 0
+    };
+
+function saveProgress() {
+
+    localStorage.setItem(
+        "frenchVerbProgress",
+        JSON.stringify(progress)
+    );
+}
+
+function updateStats() {
+
+    document.getElementById("cardsStudied")
+        .textContent =
+        progress.cardsStudied;
+}
+
 function randomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -83,6 +105,12 @@ function checkAnswer() {
         document.getElementById("feedback").innerHTML =
             "✅ Correct !";
 
+        progress.cardsStudied++;
+
+        saveProgress();
+
+        updateStats();
+
     } else {
 
         document.getElementById("feedback").innerHTML =
@@ -97,6 +125,8 @@ function checkAnswer() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    updateStats();
 
     document
         .getElementById("mixedMode")
