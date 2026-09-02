@@ -70,7 +70,36 @@ function checkAnswer() {
         .trim()
         .toLowerCase();
 
-    if (userAnswer === currentCard.answer) {
+    const shortAnswer =
+        currentCard.answer.toLowerCase();
+
+    const fullAnswer =
+        (
+            currentCard.subject +
+            " " +
+            currentCard.answer
+        ).toLowerCase();
+
+    if (
+        userAnswer === shortAnswer ||
+        userAnswer === fullAnswer
+    ) {
+
+        document.getElementById("feedback").innerHTML =
+            "✅ Correct !";
+
+    } else {
+
+        document.getElementById("feedback").innerHTML =
+            "❌ Pas tout à fait...";
+    }
+
+    document.getElementById("correctAnswer").innerHTML =
+        "<strong>Correct form:</strong><br>" +
+        currentCard.subject +
+        " " +
+        currentCard.answer;
+}
 
         document.getElementById("feedback").innerHTML =
             "✅ Correct !";
