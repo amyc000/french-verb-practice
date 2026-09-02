@@ -1,20 +1,31 @@
-alert("APP JS LOADED");
+const verbs = ["parler", "aimer", "donner", "travailler"];
+const pronouns = ["je", "tu", "il", "nous", "vous", "ils"];
+
+function randomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function startPractice() {
+
+    document
+        .getElementById("homeScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("practiceScreen")
+        .classList.remove("hidden");
+
+    document.getElementById("verb").textContent =
+        randomItem(verbs);
+
+    document.getElementById("subject").textContent =
+        randomItem(pronouns);
+}
 
 document.addEventListener("DOMContentLoaded", function() {
 
-    alert("DOM LOADED");
-
-    const btn = document.getElementById("mixedMode");
-
-    if (!btn) {
-        alert("mixedMode button NOT FOUND");
-        return;
-    }
-
-    alert("mixedMode button FOUND");
-
-    btn.addEventListener("click", function() {
-        alert("BUTTON CLICKED");
-    });
+    document
+        .getElementById("mixedMode")
+        .addEventListener("click", startPractice);
 
 });
