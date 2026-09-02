@@ -1,22 +1,9 @@
 function startPractice() {
-
-    document
-        .getElementById("homeScreen")
-        .classList.add("hidden");
-
-    document
-        .getElementById("practiceScreen")
-        .classList.remove("hidden");
-
-    document.getElementById("verb").textContent =
-        "parler";
-
-    document.getElementById("subject").textContent =
-        "nous";
+    alert("Pratique mixte clicked!");
 }
 
 document
     .getElementById("mixedMode")
     .addEventListener("click", startPractice);
 
-console.log("app loaded");
+alert("app.js loaded");
