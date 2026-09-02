@@ -54,10 +54,15 @@ let currentCard;
 let progress =
     JSON.parse(
         localStorage.getItem("frenchVerbProgress")
-    ) || {
-        cardsStudied: 0,
-        hardCards: []
-    };
+    ) || {};
+
+if (!progress.cardsStudied) {
+    progress.cardsStudied = 0;
+}
+
+if (!progress.hardCards) {
+    progress.hardCards = [];
+}
 
 function saveProgress() {
 
