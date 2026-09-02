@@ -1,18 +1,32 @@
-const verbs = [
-    "parler",
-    "aimer",
-    "donner",
-    "travailler"
+const cards = [
+
+    {
+        verb: "parler",
+        subject: "nous",
+        answer: "parlons"
+    },
+
+    {
+        verb: "aimer",
+        subject: "vous",
+        answer: "aimez"
+    },
+
+    {
+        verb: "donner",
+        subject: "je",
+        answer: "donne"
+    },
+
+    {
+        verb: "aller",
+        subject: "ils",
+        answer: "vont"
+    }
+
 ];
 
-const pronouns = [
-    "je",
-    "tu",
-    "il",
-    "nous",
-    "vous",
-    "ils"
-];
+let currentCard;
 
 function randomItem(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
@@ -33,11 +47,45 @@ function startPractice() {
 
 function nextCard() {
 
+    currentCard = randomItem(cards);
+
     document.getElementById("verb").textContent =
-        randomItem(verbs);
+        currentCard.verb;
 
     document.getElementById("subject").textContent =
-        randomItem(pronouns);
+        currentCard.subject;
+
+    document.getElementById("answer").value = "";
+
+    document.getElementById("feedback").innerHTML = "";
+
+    document.getElementById("correctAnswer").innerHTML = "";
+}
+
+function checkAnswer() {
+
+    let userAnswer =
+        document.getElementById("answer")
+        .value
+        .trim()
+        .toLowerCase();
+
+    if (userAnswer === currentCard.answer) {
+
+        document.getElementById("feedback").innerHTML =
+            "✅ Correct !";
+
+    } else {
+
+        document.getElementById("feedback").innerHTML =
+            "❌ Pas tout à fait...";
+    }
+
+    document.getElementById("correctAnswer").innerHTML =
+        "<strong>Correct form:</strong><br>" +
+        currentCard.subject +
+        " " +
+        currentCard.answer;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -49,5 +97,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document
         .getElementById("nextBtn")
         .addEventListener("click", nextCard);
+
+    document
+        .getElementById("checkBtn")
+        .addEventListener("click", checkAnswer);
 
 });
