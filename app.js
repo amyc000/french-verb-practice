@@ -145,10 +145,31 @@ progress.hardCards.length;
 function randomItem(arr) {
 
 return arr[
-Math.floor(
-Math.random() * arr.length
-)
+Math.floor(Math.random() * arr.length)
 ];
+
+}
+
+function getDisplayForm() {
+
+const answer =
+currentVerb.forms[currentSubject];
+
+const firstLetter =
+answer.charAt(0).toLowerCase();
+
+const vowels =
+"aeiouhàâéèêëîïôöùûü";
+
+if (
+currentSubject === "je" &&
+vowels.includes(firstLetter)
+) {
+
+return "j'" + answer;
+}
+
+return currentSubject + " " + answer;
 
 }
 
@@ -199,12 +220,37 @@ const shortAnswer =
 currentVerb.forms[currentSubject]
 .toLowerCase();
 
-const fullAnswer =
+let fullAnswer;
+
+const firstLetter =
+currentVerb.forms[currentSubject]
+.charAt(0)
+.toLowerCase();
+
+const vowels =
+"aeiouhàâéèêëîïôöùûü";
+
+if (
+currentSubject === "je" &&
+vowels.includes(firstLetter)
+) {
+
+fullAnswer =
+(
+"j'" +
+currentVerb.forms[currentSubject]
+).toLowerCase();
+
+} else {
+
+fullAnswer =
 (
 currentSubject +
 " " +
 currentVerb.forms[currentSubject]
 ).toLowerCase();
+
+}
 
 if (
 userAnswer === shortAnswer ||
@@ -229,9 +275,7 @@ document.getElementById("feedback").innerHTML =
 
 document.getElementById("correctAnswer").innerHTML =
 "<strong>Correct form:</strong><br>" +
-currentSubject +
-" " +
-currentVerb.forms[currentSubject];
+getDisplayForm();
 
 }
 
@@ -254,7 +298,7 @@ currentSubject +
 
 explanation +=
 "<p><strong>Correct form:</strong> " +
-currentVerb.forms[currentSubject] +
+getDisplayForm() +
 "</p>";
 
 if (currentVerb.type === "regular") {
