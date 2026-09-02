@@ -1,3 +1,23 @@
+const verbs = [
+    "parler",
+    "aimer",
+    "donner",
+    "travailler"
+];
+
+const pronouns = [
+    "je",
+    "tu",
+    "il",
+    "nous",
+    "vous",
+    "ils"
+];
+
+function randomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+}
+
 function startPractice() {
 
     document
@@ -8,11 +28,16 @@ function startPractice() {
         .getElementById("practiceScreen")
         .classList.remove("hidden");
 
+    nextCard();
+}
+
+function nextCard() {
+
     document.getElementById("verb").textContent =
-        "parler";
+        randomItem(verbs);
 
     document.getElementById("subject").textContent =
-        "nous";
+        randomItem(pronouns);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -20,5 +45,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document
         .getElementById("mixedMode")
         .addEventListener("click", startPractice);
+
+    document
+        .getElementById("nextBtn")
+        .addEventListener("click", nextCard);
 
 });
