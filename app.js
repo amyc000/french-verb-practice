@@ -1,29 +1,24 @@
 const cards = [
-
     {
         verb: "parler",
         subject: "nous",
         answer: "parlons"
     },
-
     {
         verb: "aimer",
         subject: "vous",
         answer: "aimez"
     },
-
     {
         verb: "donner",
         subject: "je",
         answer: "donne"
     },
-
     {
         verb: "aller",
         subject: "ils",
         answer: "vont"
     }
-
 ];
 
 let currentCard;
@@ -84,22 +79,6 @@ function checkAnswer() {
         userAnswer === shortAnswer ||
         userAnswer === fullAnswer
     ) {
-
-        document.getElementById("feedback").innerHTML =
-            "✅ Correct !";
-
-    } else {
-
-        document.getElementById("feedback").innerHTML =
-            "❌ Pas tout à fait...";
-    }
-
-    document.getElementById("correctAnswer").innerHTML =
-        "<strong>Correct form:</strong><br>" +
-        currentCard.subject +
-        " " +
-        currentCard.answer;
-}
 
         document.getElementById("feedback").innerHTML =
             "✅ Correct !";
