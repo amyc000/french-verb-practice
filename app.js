@@ -2,92 +2,32 @@ const verbs = [
 {
 verb:"parler",
 type:"regular",
-forms:{
-je:"parle",
-tu:"parles",
-il:"parle",
-elle:"parle",
-on:"parle",
-nous:"parlons",
-vous:"parlez",
-ils:"parlent",
-elles:"parlent"
-}
+forms:{je:"parle",tu:"parles",il:"parle",elle:"parle",on:"parle",nous:"parlons",vous:"parlez",ils:"parlent",elles:"parlent"}
 },
 {
 verb:"aimer",
 type:"regular",
-forms:{
-je:"aime",
-tu:"aimes",
-il:"aime",
-elle:"aime",
-on:"aime",
-nous:"aimons",
-vous:"aimez",
-ils:"aiment",
-elles:"aiment"
-}
+forms:{je:"aime",tu:"aimes",il:"aime",elle:"aime",on:"aime",nous:"aimons",vous:"aimez",ils:"aiment",elles:"aiment"}
 },
 {
 verb:"donner",
 type:"regular",
-forms:{
-je:"donne",
-tu:"donnes",
-il:"donne",
-elle:"donne",
-on:"donne",
-nous:"donnons",
-vous:"donnez",
-ils:"donnent",
-elles:"donnent"
-}
+forms:{je:"donne",tu:"donnes",il:"donne",elle:"donne",on:"donne",nous:"donnons",vous:"donnez",ils:"donnent",elles:"donnent"}
 },
 {
 verb:"aller",
 type:"irregular",
-forms:{
-je:"vais",
-tu:"vas",
-il:"va",
-elle:"va",
-on:"va",
-nous:"allons",
-vous:"allez",
-ils:"vont",
-elles:"vont"
-}
+forms:{je:"vais",tu:"vas",il:"va",elle:"va",on:"va",nous:"allons",vous:"allez",ils:"vont",elles:"vont"}
 },
 {
 verb:"être",
 type:"irregular",
-forms:{
-je:"suis",
-tu:"es",
-il:"est",
-elle:"est",
-on:"est",
-nous:"sommes",
-vous:"êtes",
-ils:"sont",
-elles:"sont"
-}
+forms:{je:"suis",tu:"es",il:"est",elle:"est",on:"est",nous:"sommes",vous:"êtes",ils:"sont",elles:"sont"}
 },
 {
 verb:"avoir",
 type:"irregular",
-forms:{
-je:"ai",
-tu:"as",
-il:"a",
-elle:"a",
-on:"a",
-nous:"avons",
-vous:"avez",
-ils:"ont",
-elles:"ont"
-}
+forms:{je:"ai",tu:"as",il:"a",elle:"a",on:"a",nous:"avons",vous:"avez",ils:"ont",elles:"ont"}
 }
 ];
 
@@ -140,6 +80,9 @@ progress.cardsStudied;
 document.getElementById("hardCount").textContent =
 progress.hardCards.length;
 
+document.getElementById("knownCount").textContent =
+progress.knownCards.length;
+
 }
 
 function randomItem(arr) {
@@ -167,6 +110,7 @@ vowels.includes(firstLetter)
 ) {
 
 return "j'" + answer;
+
 }
 
 return currentSubject + " " + answer;
@@ -175,8 +119,58 @@ return currentSubject + " " + answer;
 
 function nextCard() {
 
-currentVerb = randomItem(verbs);
-currentSubject = randomItem(pronouns);
+let weightedCards = [];
+
+verbs.forEach(function (verb) {
+
+pronouns.forEach(function (subject) {
+
+const cardId =
+verb.verb + "|" + subject;
+
+let weight = 5;
+
+if (
+progress.hardCards.includes(cardId)
+) {
+
+weight = 15;
+
+}
+
+if (
+progress.knownCards.includes(cardId)
+) {
+
+weight = 1;
+
+}
+
+for (
+let i = 0;
+i < weight;
+i++
+) {
+
+weightedCards.push({
+verb: verb,
+subject: subject
+});
+
+}
+
+});
+
+});
+
+const selected =
+randomItem(weightedCards);
+
+currentVerb =
+selected.verb;
+
+currentSubject =
+selected.subject;
 
 document.getElementById("verb").textContent =
 currentVerb.verb;
@@ -241,7 +235,8 @@ fullAnswer =
 currentVerb.forms[currentSubject]
 ).toLowerCase();
 
-} else {
+}
+else {
 
 fullAnswer =
 (
@@ -266,7 +261,8 @@ saveProgress();
 
 updateStats();
 
-} else {
+}
+else {
 
 document.getElementById("feedback").innerHTML =
 "❌ Pas tout à fait...";
@@ -306,7 +302,8 @@ if (currentVerb.type === "regular") {
 explanation +=
 "<p>This follows a regular conjugation pattern.</p>";
 
-} else {
+}
+else {
 
 explanation +=
 "<p>This is an irregular form that must be memorized.</p>";
@@ -363,10 +360,12 @@ progress.knownCards.push(id);
 
 saveProgress();
 
+updateStats();
+
 }
 
 document.getElementById("feedback").innerHTML =
-"✅ Forme marquée comme maîtrisée.";
+"✅ Carte marquée comme facile.";
 
 setTimeout(function () {
 
