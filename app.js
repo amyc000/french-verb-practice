@@ -8,7 +8,7 @@ const pronouns = [
 "vous",
 "ils",
 "elles"
-];x
+];
 
 let currentVerb;
 let currentSubject;
