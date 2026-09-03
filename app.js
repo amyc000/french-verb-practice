@@ -31,6 +31,33 @@ if (!progress.knownCards) {
 progress.knownCards = [];
 }
 
+if (!progress.cardsStudied) {
+    progress.cardsStudied = 0;
+}
+
+if (!progress.hardCards) {
+    progress.hardCards = [];
+}
+
+if (!progress.knownCards) {
+    progress.knownCards = [];
+}
+
+if (!progress.pronounCounts) {
+
+    progress.pronounCounts = {
+        je: 0,
+        tu: 0,
+        il: 0,
+        elle: 0,
+        on: 0,
+        nous: 0,
+        vous: 0,
+        ils: 0,
+        elles: 0
+    };
+
+}
 function saveProgress() {
 
 localStorage.setItem(
@@ -58,6 +85,43 @@ function randomItem(arr) {
 return arr[
 Math.floor(Math.random() * arr.length)
 ];
+
+}
+
+function getBalancedPronoun() {
+
+    let lowestCount = Infinity;
+
+    pronouns.forEach(function(pronoun) {
+
+        if (
+            progress.pronounCounts[pronoun] <
+            lowestCount
+        ) {
+
+            lowestCount =
+                progress.pronounCounts[pronoun];
+
+        }
+
+    });
+
+    let candidates = [];
+
+    pronouns.forEach(function(pronoun) {
+
+        if (
+            progress.pronounCounts[pronoun] ===
+            lowestCount
+        ) {
+
+            candidates.push(pronoun);
+
+        }
+
+    });
+
+    return randomItem(candidates);
 
 }
 
