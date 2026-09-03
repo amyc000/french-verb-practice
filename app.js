@@ -225,7 +225,11 @@ currentVerb =
 selected.verb;
 
 currentSubject =
-selected.subject;
+getBalancedPronoun();
+
+progress.pronounCounts[currentSubject]++;
+
+saveProgress();
 
 document.getElementById("verb").textContent =
 currentVerb.verb;
