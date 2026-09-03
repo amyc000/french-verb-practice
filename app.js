@@ -8,7 +8,7 @@ const pronouns = [
 "vous",
 "ils",
 "elles"
-];
+];x
 
 let currentVerb;
 let currentSubject;
@@ -58,6 +58,21 @@ if (!progress.pronounCounts) {
     };
 
 }
+
+if (!progress.categoryCounts) {
+
+    progress.categoryCounts = {
+        "regular-er": 0,
+        "ir-choisir": 0,
+        "ir-partir": 0,
+        "regular-re": 0,
+        "spelling-change": 0,
+        "common-irregular": 0,
+        "advanced-irregular": 0
+    };
+
+}
+
 function saveProgress() {
 
 localStorage.setItem(
