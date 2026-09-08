@@ -206,10 +206,10 @@ return currentSubject + " " + answer;
 
 function nextCard() {
 
-let candidateCards = [];
-
-const targetCategroy =
+const targetCategory =
     getBalancedCategory();
+    
+let candidateCards = [];
 
 verbs.forEach(function (verb) {
 
