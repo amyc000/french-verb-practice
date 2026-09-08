@@ -141,11 +141,27 @@ function getBalancedPronoun() {
 }
 function getBalancedCategory() {
 
+    const availableCategories = [];
+
+    verbs.forEach(function(verb) {
+
+        if (
+            !availableCategories.includes(
+                verb.category
+            )
+        ) {
+
+            availableCategories.push(
+                verb.category
+            );
+
+        }
+
+    });
+
     let lowestCount = Infinity;
 
-    Object.keys(
-        progress.categoryCounts
-    ).forEach(function(category) {
+    availableCategories.forEach(function(category) {
 
         if (
             progress.categoryCounts[category] <
@@ -159,11 +175,9 @@ function getBalancedCategory() {
 
     });
 
-    let candidates = [];
+    const candidates = [];
 
-    Object.keys(
-        progress.categoryCounts
-    ).forEach(function(category) {
+    availableCategories.forEach(function(category) {
 
         if (
             progress.categoryCounts[category] ===
@@ -179,6 +193,7 @@ function getBalancedCategory() {
     return randomItem(candidates);
 
 }
+
 
 function getDisplayForm() {
 
