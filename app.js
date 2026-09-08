@@ -218,6 +218,12 @@ pronouns.forEach(function (subject) {
 const cardId =
 verb.verb + "|" + subject;
 
+if (
+    verb.category !== targetCategory
+) {
+    return;
+}
+
 if (reviewMode === "difficult") {
 
 if (
