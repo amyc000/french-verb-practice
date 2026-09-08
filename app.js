@@ -328,6 +328,16 @@ document.getElementById("correctAnswer").innerHTML = "";
 
 }
 
+function resetProgress() {
+
+    localStorage.removeItem(
+        "frenchVerbProgress"
+    );
+
+    location.reload();
+
+}
+
 function startPractice() {
 
 reviewMode = "mixed";
@@ -493,6 +503,18 @@ nextCard();
 
 }
 
+function resetProgress() {
+
+    if (
+        confirm(
+            "Voulez-vous vraiment réinitialiser votre progression ?"
+        )
+    ) {
+
+        localStorage.removeItem(
+            "frenchVerbProgress"
+
+
 document.addEventListener(
 "DOMContentLoaded",
 function() {
@@ -521,6 +543,13 @@ document
 nextCard
 );
 
+document
+.getElementById("resetBtn")
+.addEventListener(
+"click",
+resetProgress
+);
+    
 document
 .getElementById("checkBtn")
 .addEventListener(
