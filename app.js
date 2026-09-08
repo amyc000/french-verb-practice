@@ -139,6 +139,46 @@ function getBalancedPronoun() {
     return randomItem(candidates);
 
 }
+function getBalancedCategory() {
+
+    let lowestCount = Infinity;
+
+    Object.keys(
+        progress.categoryCounts
+    ).forEach(function(category) {
+
+        if (
+            progress.categoryCounts[category] <
+            lowestCount
+        ) {
+
+            lowestCount =
+                progress.categoryCounts[category];
+
+        }
+
+    });
+
+    let candidates = [];
+
+    Object.keys(
+        progress.categoryCounts
+    ).forEach(function(category) {
+
+        if (
+            progress.categoryCounts[category] ===
+            lowestCount
+        ) {
+
+            candidates.push(category);
+
+        }
+
+    });
+
+    return randomItem(candidates);
+
+}
 
 function getDisplayForm() {
 
@@ -243,6 +283,10 @@ currentSubject =
 getBalancedPronoun();
 
 progress.pronounCounts[currentSubject]++;
+
+progress.categoryCounts[
+    currentVerb.category
+]++;
 
 saveProgress();
 
