@@ -208,6 +208,9 @@ function nextCard() {
 
 let candidateCards = [];
 
+const targetCategroy =
+    getBalancedCategory();
+
 verbs.forEach(function (verb) {
 
 pronouns.forEach(function (subject) {
