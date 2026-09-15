@@ -330,11 +330,19 @@ document.getElementById("correctAnswer").innerHTML = "";
 
 function resetProgress() {
 
-    localStorage.removeItem(
-        "frenchVerbProgress"
-    );
+    if (
+        confirm(
+            "Voulez-vous vraiment réinitialiser votre progression ?"
+        )
+    ) {
 
-    location.reload();
+        localStorage.removeItem(
+            "frenchVerbProgress"
+        );
+
+        location.reload();
+
+    }
 
 }
 
@@ -502,18 +510,6 @@ nextCard();
 }, 1000);
 
 }
-
-function resetProgress() {
-
-    if (
-        confirm(
-            "Voulez-vous vraiment réinitialiser votre progression ?"
-        )
-    ) {
-
-        localStorage.removeItem(
-            "frenchVerbProgress"
-
 
 document.addEventListener(
 "DOMContentLoaded",
