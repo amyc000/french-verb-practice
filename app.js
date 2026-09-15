@@ -209,9 +209,15 @@ return currentSubject + " " + answer;
 
 function nextCard() {
 
-const targetCategory =
-    getBalancedCategory();
-    
+let targetCategory = null;
+
+if (reviewMode !== "difficult") {
+
+    targetCategory =
+        getBalancedCategory();
+
+}
+
 let candidateCards = [];
 
 verbs.forEach(function (verb) {
@@ -222,11 +228,12 @@ const cardId =
 verb.verb + "|" + subject;
 
 if (
+    reviewMode !== "difficult" &&
     verb.category !== targetCategory
 ) {
     return;
 }
-
+    
 if (reviewMode === "difficult") {
 
 if (
