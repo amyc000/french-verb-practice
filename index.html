@@ -1,99 +1,103 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Conjugaison Française</title>
+    <title>Conjugaison Française</title>
 
-<link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<h1>Conjugaison Française</h1>
+    <h1>Conjugaison Française</h1>
 
-<div id="homeScreen">
+    <div id="homeScreen">
 
-    <div class="card">
+        <div class="card">
 
-        <div class="menu">
+            <div class="menu">
 
-            <button id="mixedMode" class="primary">
-                🎲 Pratique mixte
-            </button>
+                <button id="mixedMode" class="primary">
+                    🎲 Pratique mixte
+                </button>
 
-            <button id="difficultMode">
-                🔥 Réviser mes verbes difficiles
-            </button>
+                <button id="difficultMode">
+                    🔥 Réviser mes verbes difficiles
+                </button>
 
-        </div>
+            </div>
 
-        <div class="stats">
+            <div class="stats">
 
-            <strong>Progression</strong>
+                <strong>Progression</strong>
 
-            <p>
-                Cartes étudiées :
-                <span id="cardsStudied">0</span>
-            </p>
+                <p>
+                    Cartes étudiées :
+                    <span id="cardsStudied">0</span>
+                </p>
 
-            <p>
-                Cartes difficiles :
-                <span id="hardCount">0</span>
-            </p>
-            <p>
-                Cartes maîtrisées :
-                <span id="knownCount">0</span>
-            </p>
+                <p>
+                    Cartes difficiles :
+                    <span id="hardCount">0</span>
+                </p>
 
+                <p>
+                    Cartes maîtrisées :
+                    <span id="knownCount">0</span>
+                </p>
+
+                <button id="resetBtn">
+                    🔄 Réinitialiser la progression
+                </button>
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
+    <div id="practiceScreen" class="hidden">
 
-<div id="practiceScreen" class="hidden">
+        <div class="card">
 
-    <div class="card">
+            <div>Conjuguez le verbe :</div>
 
-        <div>Conjuguez le verbe :</div>
+            <div id="verb" class="verb"></div>
 
-        <div id="verb" class="verb"></div>
+            <div id="subject" class="subject"></div>
 
-        <div id="subject" class="subject"></div>
+            <input id="answer">
 
-        <input id="answer">
+            <br><br>
 
-        <br><br>
+            <button id="checkBtn" class="primary">
+                Vérifier
+            </button>
 
-        <button id="checkBtn" class="primary">
-            Vérifier
-        </button>
+            <button id="knowBtn">
+                ✅ Facile
+            </button>
 
-        <button id="knowBtn">
-            ✅ Facile
-        </button>
-        
-        <button id="hardBtn">
-            😅 Difficile
-        </button>
+            <button id="hardBtn">
+                😅 Difficile
+            </button>
 
-        <button id="nextBtn">
-            Carte suivante
-        </button>
+            <button id="nextBtn">
+                Carte suivante
+            </button>
 
-        <div id="feedback"></div>
+            <div id="feedback"></div>
 
-        <div id="correctAnswer"></div>
+            <div id="correctAnswer"></div>
+
+        </div>
 
     </div>
 
-</div>
-
-<script src="verbs.js"></script>
-<script src="app.js"></script>
+    <script src="verbs.js"></script>
+    <script src="app.js"></script>
 
 </body>
 </html>
