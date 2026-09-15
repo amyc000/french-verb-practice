@@ -278,10 +278,14 @@ subject: subject
 
 if (candidateCards.length === 0) {
 
-document.getElementById("feedback").innerHTML =
-"😅 Aucune carte difficile pour le moment.";
+    if (reviewMode === "difficult") {
 
-return;
+        document.getElementById("feedback").innerHTML =
+        "😅 Aucune carte difficile pour le moment.";
+
+    }
+
+    return;
 
 }
 
@@ -367,6 +371,10 @@ nextCard();
 }
 
 function checkAnswer() {
+
+if (!currentVerb || !currentSubject) {
+    return;
+}
 
 let userAnswer =
 document.getElementById("answer")
