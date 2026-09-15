@@ -31,18 +31,6 @@ if (!progress.knownCards) {
 progress.knownCards = [];
 }
 
-if (!progress.cardsStudied) {
-    progress.cardsStudied = 0;
-}
-
-if (!progress.hardCards) {
-    progress.hardCards = [];
-}
-
-if (!progress.knownCards) {
-    progress.knownCards = [];
-}
-
 if (!progress.pronounCounts) {
 
     progress.pronounCounts = {
@@ -539,12 +527,17 @@ document
 nextCard
 );
 
-document
-.getElementById("resetBtn")
-.addEventListener(
-"click",
-resetProgress
-);
+const resetBtn =
+    document.getElementById("resetBtn");
+
+if (resetBtn) {
+
+    resetBtn.addEventListener(
+        "click",
+        resetProgress
+    );
+
+}
     
 document
 .getElementById("checkBtn")
